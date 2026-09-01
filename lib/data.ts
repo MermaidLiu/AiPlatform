@@ -3,6 +3,7 @@ import { tools } from '@/data/tools';
 import { flows } from '@/data/flows';
 import { categories } from '@/data/categories';
 import { newsItems } from '@/data/news';
+import { getFeaturedNews, getPublishedNews } from '@/lib/news';
 import { defaultAdminConfig } from '@/data/admin-config';
 import type { Category, Tool } from '@/types';
 
@@ -28,7 +29,11 @@ export function getAllCategories() {
 }
 
 export function getAllNews() {
-  return newsItems;
+  return getPublishedNews(newsItems);
+}
+
+export function getFeaturedNewsItems(limit = 5) {
+  return getFeaturedNews(newsItems, limit);
 }
 
 export function getAdminConfig() {

@@ -53,12 +53,17 @@ export function Footer() {
               </li>
               <li>
                 <Link href="/owned" className="text-sm text-muted-foreground hover:text-primary">
-                  自研工具
+                  官方能力
                 </Link>
               </li>
               <li>
                 <Link href="/news" className="text-sm text-muted-foreground hover:text-primary">
-                  快讯
+                  资讯
+                </Link>
+              </li>
+              <li>
+                <Link href="/submit" className="text-sm text-muted-foreground hover:text-primary">
+                  提交工具
                 </Link>
               </li>
             </ul>

@@ -5,18 +5,22 @@ import { usePathname } from 'next/navigation';
 import { useState } from 'react';
 import { SearchBar } from '@/components/search/search-bar';
 import { cn } from '@/lib/utils';
-import { categories } from '@/data/categories';
 
 const navLinks = [
-  { href: '/flow', label: '流程向导' },
-  { href: '/tools', label: '工具库' },
-  { href: '/owned', label: '自研工具' },
-  { href: '/news', label: '快讯' },
+  { href: '/', label: '首页', exact: true },
+  { href: '/owned', label: '官方能力' },
+  { href: '/submit', label: '提交工具' },
+  { href: '/news', label: '资讯' },
 ];
 
 export function Header() {
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
+
+  const isActive = (href: string, exact?: boolean) => {
+    if (exact) return pathname === href;
+    return pathname === href || pathname.startsWith(`${href}/`);
+  };
 
   return (
     <header className="sticky top-0 z-50 border-b bg-white shadow-sm">
@@ -31,30 +35,15 @@ export function Header() {
           <span className="hidden text-sm sm:inline">AgentFlow</span>
         </Link>
 
-        {/* 品类 Tab — ai-bot 风格 */}
         <nav className="hidden items-center gap-0.5 md:flex">
-          {categories.map((cat) => (
-            <Link
-              key={cat.id}
-              href={`/category/${cat.id}`}
-              className={cn(
-                'rounded-md px-2.5 py-1.5 text-sm transition-colors hover:bg-slate-100',
-                pathname === `/category/${cat.id}` &&
-                  'bg-primary/10 font-medium text-primary'
-              )}
-            >
-              {cat.name}
-            </Link>
-          ))}
-          <span className="mx-1 h-4 w-px bg-border" />
           {navLinks.map((link) => (
             <Link
               key={link.href}
               href={link.href}
               className={cn(
                 'rounded-md px-2.5 py-1.5 text-sm transition-colors hover:bg-slate-100',
-                pathname.startsWith(link.href) &&
-                  'font-medium text-primary'
+                isActive(link.href, link.exact) &&
+                  'bg-primary/10 font-medium text-primary'
               )}
             >
               {link.label}
@@ -80,21 +69,14 @@ export function Header() {
         <div className="border-t bg-white px-4 py-4 md:hidden">
           <SearchBar className="mb-4" />
           <div className="space-y-1">
-            {categories.map((cat) => (
-              <Link
-                key={cat.id}
-                href={`/category/${cat.id}`}
-                className="block rounded-md px-2 py-2 text-sm hover:bg-slate-100"
-                onClick={() => setMobileOpen(false)}
-              >
-                {cat.name}
-              </Link>
-            ))}
             {navLinks.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
-                className="block rounded-md px-2 py-2 text-sm hover:bg-slate-100"
+                className={cn(
+                  'block rounded-md px-2 py-2 text-sm hover:bg-slate-100',
+                  isActive(link.href, link.exact) && 'font-medium text-primary'
+                )}
                 onClick={() => setMobileOpen(false)}
               >
                 {link.label}

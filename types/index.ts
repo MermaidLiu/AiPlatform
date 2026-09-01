@@ -78,11 +78,17 @@ export interface CategoryInfo {
   scenarios: string[];
 }
 
+export type NewsStatus = 'draft' | 'published' | 'offline';
+
 export interface NewsItem {
   id: string;
   title: string;
   summary: string;
   publishedAt: string;
+  /** 分组展示用，如「8月27 · 周四」 */
+  dateLabel?: string;
+  source: string;
+  status?: NewsStatus;
   url?: string;
 }
 

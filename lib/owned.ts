@@ -2,11 +2,38 @@ import { categories, getCategoryLabel } from '@/data/categories';
 import { getAdminConfig, getToolById } from '@/lib/data';
 import type { Category, Tool } from '@/types';
 
+/** 官方精选代理工具固定顺序（5 个） */
+const OFFICIAL_AGENCY_TOOL_IDS = [
+  'kickart',
+  'dramart',
+  'trae-cn',
+  'coze-enterprise',
+  'icc-apaas',
+] as const;
+
 export function isOwnedSectionEnabled(): boolean {
   return getAdminConfig().ownedSectionEnabled;
 }
 
 /** 首页专区：5 个自研工具，排除成人向 */
+/** 首页官方精选：5 自研（排除成人向）+ 5 代理 */
+export function getOfficialPicksTools(): Tool[] {
+  const owned = getHomepageOwnedTools();
+  const agency = OFFICIAL_AGENCY_TOOL_IDS.map((id) => getToolById(id)).filter(
+    (t): t is Tool => Boolean(t)
+  );
+  return [...owned, ...agency];
+}
+
+/** 官方能力页：5 自研 + 5 代理，直接堆叠 */
+export function getOfficialCapabilityTools(): Tool[] {
+  const owned = getAllOwnedToolsOrdered();
+  const agency = OFFICIAL_AGENCY_TOOL_IDS.map((id) => getToolById(id)).filter(
+    (t): t is Tool => Boolean(t)
+  );
+  return [...owned, ...agency];
+}
+
 export function getHomepageOwnedTools(): Tool[] {
   const config = getAdminConfig();
   if (!config.ownedSectionEnabled) return [];
