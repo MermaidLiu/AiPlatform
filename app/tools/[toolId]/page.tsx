@@ -5,6 +5,7 @@ import { AgencyBadge } from '@/components/badges/agency-badge';
 import { OwnedBadge } from '@/components/badges/owned-badge';
 import { ToolAgencyEnhancement } from '@/components/tools/tool-agency-enhancement';
 import { ToolOwnedEnhancement } from '@/components/tools/tool-owned-enhancement';
+import { TokenBasePlayground } from '@/components/tools/token-base-playground';
 import { ToolIcon } from '@/components/tools/tool-icon';
 import { Badge } from '@/components/ui/badge';
 import { buttonVariants } from '@/components/ui/button';
@@ -179,6 +180,12 @@ export default function ToolDetailPage({ params }: PageProps) {
             ))}
           </ul>
         </Section>
+      )}
+
+      {tool.id === 'token-aggregator' && (
+        <div id="playground">
+          <TokenBasePlayground />
+        </div>
       )}
 
       <p className="mt-8 text-xs text-muted-foreground">
