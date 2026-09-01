@@ -27,6 +27,9 @@ plans
 electron/node_modules
 electron/dist
 /data/
+bin/juvorai
+bin/juvorai.exe
+config/token-base.env
 .gomodcache/
 .gocache-temp
 .gopath

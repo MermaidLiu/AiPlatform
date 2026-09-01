@@ -1,0 +1,86 @@
+# JuvorAI Agent 集成配置模板
+# 此文件为参考文档，实际配置通过管理后台「渠道管理」完成
+# 访问 http://localhost:3000 → 登录管理员 → 渠道 → 添加渠道
+
+agents:
+  # ─────────────────────────────────────────────
+  # 示例 1: OpenAI 兼容 API（最常见）
+  # 适用于: GPT、DeepSeek、Moonshot、SiliconFlow 等
+  # ─────────────────────────────────────────────
+  - name: "GPT-4o 渠道"
+    type: openai          # 渠道类型
+    base_url: "https://api.openai.com"
+    api_key: "sk-your-api-key-here"
+    models:
+      - "gpt-4o"
+      - "gpt-4o-mini"
+    group: "default"      # 令牌分组
+    weight: 1             # 负载均衡权重
+
+  # ─────────────────────────────────────────────
+  # 示例 2: Claude (Anthropic)
+  # ─────────────────────────────────────────────
+  - name: "Claude 渠道"
+    type: anthropic
+    base_url: "https://api.anthropic.com"
+    api_key: "sk-ant-your-key-here"
+    models:
+      - "claude-sonnet-4-20250514"
+      - "claude-3-5-haiku-20241022"
+
+  # ─────────────────────────────────────────────
+  # 示例 3: Dify Agent（智能体平台）
+  # BotType: 1=Chat, 2=Agent, 3=Workflow
+  # ─────────────────────────────────────────────
+  - name: "我的 Dify 智能体"
+    type: dify
+    base_url: "https://api.dify.ai/v1"
+    api_key: "app-your-dify-api-key"
+    models:
+      - "dify-agent-1"   # 自定义模型名，映射到 Dify App
+    settings:
+      bot_type: 2         # 2 = Agent 模式
+
+  # ─────────────────────────────────────────────
+  # 示例 4: Coze 智能体（字节跳动）
+  # ─────────────────────────────────────────────
+  - name: "Coze Bot"
+    type: coze
+    base_url: "https://api.coze.com"
+    api_key: "pat_your_coze_token"
+    models:
+      - "coze-bot-1"
+
+  # ─────────────────────────────────────────────
+  # 示例 5: FastGPT 知识库智能体
+  # ─────────────────────────────────────────────
+  - name: "FastGPT 知识库"
+    type: fastgpt
+    base_url: "https://fastgpt.run/api/openapi"
+    api_key: "fastgpt-your-api-key"
+    models:
+      - "fastgpt-kb-1"
+
+  # ─────────────────────────────────────────────
+  # 示例 6: 自定义上游（任意 OpenAI 兼容接口）
+  # 适用于: 第三方购买的 Agent API
+  # ─────────────────────────────────────────────
+  - name: "第三方 Agent API"
+    type: custom
+    base_url: "https://your-agent-provider.com/v1"
+    api_key: "your-purchased-api-key"
+    models:
+      - "agent-model-name"
+    model_mapping:        # 可选：模型名映射
+      "my-agent": "upstream-model-id"
+
+  # ─────────────────────────────────────────────
+  # 示例 7: Google Gemini
+  # ─────────────────────────────────────────────
+  - name: "Gemini 渠道"
+    type: gemini
+    base_url: "https://generativelanguage.googleapis.com"
+    api_key: "your-gemini-api-key"
+    models:
+      - "gemini-2.5-flash"
+      - "gemini-2.5-pro"

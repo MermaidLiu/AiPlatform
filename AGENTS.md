@@ -1,4 +1,7 @@
-# AGENTS.md — Project Conventions for new-api
+# AGENTS.md — Project Conventions for JuvorAI
+
+> JuvorAI is a fork/customization of [New API](https://github.com/QuantumNous/new-api) for unified agent integration.
+> System name: **JuvorAI** (see `common/constants.go`, `web/src/lib/constants.ts`)
 
 DO NOT send optional commentary
 
